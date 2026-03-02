@@ -1,7 +1,3 @@
-import Mathlib.Tactic.Basic
-
-set_option linter.style.emptyLine false
-
 /-
 # Introduction to Lean as a Programming Language
 =====================
@@ -220,14 +216,14 @@ deriving Repr
 Compare with:
 Python:
 class Point:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+  def __init__(self, x, y):
+    self.x = x
+    self.y = y
 
 C:
 struct Point {
-    double x;
-    double y;
+  double x;
+  double y;
 };
 -/
 
@@ -321,7 +317,6 @@ def t5 (P : Prop) (p : P) : P := p
 
 theorem t6 (P : Prop) (p : P) : P := by
   exact p -- same proof / method
-
 
 -- Blurring the lines between programming a method and writing a proof:
 -- How to proof P ∧ Q → P
