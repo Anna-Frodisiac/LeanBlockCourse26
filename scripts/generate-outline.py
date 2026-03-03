@@ -256,11 +256,12 @@ def inject_announcements() -> None:
     parts: list[str] = []
 
     if recent:
-        parts.append("{: .highlight }")
-        parts.append("> **Announcements**")
-        parts.append(">")
+        parts.append('<blockquote class="highlight" markdown="1">')
+        parts.append("**Announcements**")
+        parts.append("")
         for line in recent:
-            parts.append(f"> {line}")
+            parts.append(line)
+        parts.append("</blockquote>")
         parts.append("")
 
     if older:

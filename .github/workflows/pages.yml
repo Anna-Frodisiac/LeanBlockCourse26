@@ -17,9 +17,11 @@ permissions:
   pages: write
   id-token: write
 
+# Do NOT cancel in-progress deploys — cancellation can wedge the Pages
+# deployment state, causing 404s (actions/deploy-pages#22).
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
