@@ -267,11 +267,25 @@ example : (fun (α : Type) => α) = id := rfl
 -- Exercise 2.1
 -- Show, in at least two different ways, that if
 -- `P` implies `Q` and `Q` implies `R`, then `P` implies `R`
+example (P Q R : Prop) (f : P → Q) (g : Q → R) : P → R := by
+  sorry
 
 -- Exercise 2.2
 -- Show that if `P` implies `Q`, `Q` implies `R`, and
 -- `R` implies `S`, then `P` implies `S`
+example (P Q R S : Prop) (h₁ : P → Q) (h₂ : Q → R) (h₃ : R → S) : P → S := by
+  sorry
 
 -- Exercise 2.3
 -- Show that if `P` implies that `Q` implies `R`
 -- and that `P` implies `Q`, then `P` implies `R`.
+example (P Q R : Prop) (h₁ : P → Q → R) (h₂ : P → Q) : P → R := by
+  sorry
+
+-- Exercise 2.4 (Master students)
+example (P Q R : Prop) (h₂ : Q → R) : P → (Q → R) := by
+  sorry
+
+-- Exercise 2.5 (Master students)
+example (P Q R S : Prop) (h₂ : Q → R) : S → P → Q → R := by
+  sorry
