@@ -6,6 +6,7 @@
 
 import re
 from dataclasses import dataclass, field
+from datetime import date, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -213,18 +214,67 @@ ANNOUNCE_RE = re.compile(
     r"^## Announcements\n(.*?)(?=\n## |\Z)",
     re.MULTILINE | re.DOTALL,
 )
+ANNOUNCE_DATE_RE = re.compile(r"^\s*-\s+\*\*(\d{4}-\d{2}-\d{2}):\*\*")
 BEGIN_MARKER = "<!-- begin announcements -->"
 END_MARKER = "<!-- end announcements -->"
 
+RECENT_DAYS = 3
+
+
+def parse_announcement_date(line: str) -> date | None:
+    """Extract date from an announcement bullet line."""
+    if m := ANNOUNCE_DATE_RE.match(line):
+        return date.fromisoformat(m.group(1))
+    return None
+
 
 def inject_announcements() -> None:
-    """Extract ## Announcements from README.md and inject into HOME.md."""
+    """Extract ## Announcements from README.md and inject into HOME.md.
+
+    Recent announcements (within RECENT_DAYS) are shown in a highlighted
+    callout at the top. Older ones are collapsed in a <details> block.
+    """
     readme = README.read_text()
     m = ANNOUNCE_RE.search(readme)
     if not m:
         return
 
-    body = m.group(1).strip()
+    bullets = [l for l in m.group(1).strip().splitlines() if l.strip()]
+    if not bullets:
+        return
+
+    cutoff = date.today() - timedelta(days=RECENT_DAYS)
+    recent = []
+    older = []
+    for line in bullets:
+        d = parse_announcement_date(line)
+        if d is not None and d < cutoff:
+            older.append(line)
+        else:
+            recent.append(line)
+
+    parts: list[str] = []
+
+    if recent:
+        parts.append("{: .highlight }")
+        parts.append("> **Announcements**")
+        parts.append(">")
+        for line in recent:
+            parts.append(f"> {line}")
+        parts.append("")
+
+    if older:
+        parts.append("<details markdown=\"1\">")
+        summary = "Older announcements" if recent else "Announcements"
+        parts.append(f"<summary>{summary}</summary>")
+        parts.append("")
+        for line in older:
+            parts.append(line)
+        parts.append("")
+        parts.append("</details>")
+        parts.append("")
+
+    body = "\n".join(parts)
 
     home = HOME.read_text()
     begin = home.find(BEGIN_MARKER)
@@ -232,7 +282,7 @@ def inject_announcements() -> None:
     if begin == -1 or end == -1:
         return
 
-    home = home[:begin + len(BEGIN_MARKER)] + "\n" + body + "\n" + home[end:]
+    home = home[:begin + len(BEGIN_MARKER)] + "\n" + body + home[end:]
     HOME.write_text(home)
 
 
