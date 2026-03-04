@@ -399,7 +399,7 @@ To use `h : P ∨ Q`, we can:
 - Use `obtain` with pattern matching
 -/
 
--- We can deal with `∨` in a hypethesis by applying `Or.elim` directly,
+-- We can deal with `∨` in a hypothesis by applying `Or.elim` directly,
 -- again using `·` to structure the proof to the sub-goals. Note that 
 -- `Or.elim {...} (h : a ∨ b) (left : a → c) (right : b → c) : c`
 
@@ -437,8 +437,8 @@ example (P Q R : Prop) (h : P ∨ Q) (p_to_r : P → R) (q_to_r : Q → R) : R :
   · exact q_to_r
 
 /-
-This show why tactis are good to have: you do not need to remember `Or.elim``
-or how exactly it is structured. You just use `cases`, `rcases`,  or `cases'`
+This shows why tactics are good to have: you do not need to remember `Or.elim`
+or how exactly it is structured. You just use `cases`, `rcases`, or `cases'`
 and get exactly the number of cases in the case distinction that you would expect.
 -/
 
@@ -460,7 +460,7 @@ example (P Q R : Prop) (h : P ∨ Q) (p_to_r : P → R) (q_to_r : Q → R) : R :
   · exact p_to_r p
   · exact q_to_r q
 
--- ... or you can use `obatain _ | _ := ...`
+-- ... or you can use `obtain _ | _ := ...`
 example (P Q R : Prop) (h : P ∨ Q) (p_to_r : P → R) (q_to_r : Q → R) : R := by
   obtain p | q := h   -- compare to previous `obtain ⟨p, q⟩ := h`
   · exact p_to_r p
@@ -518,7 +518,7 @@ example (P Q R : Prop) (h : P ∧ Q ∧ R) : Q := by
 used around 7500 times in mathlib.
 -/
 
--- Mixing `∧` with `∨` can quickly becomes very annoying ...
+-- Mixing `∧` with `∨` can quickly become very annoying ...
 example (P Q R : Prop) : (P ∧ Q) ∨ R → P ∨ R := by
   intro h
   rcases h with pq | r
