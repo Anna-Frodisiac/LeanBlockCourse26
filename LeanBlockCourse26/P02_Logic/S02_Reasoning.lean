@@ -302,18 +302,37 @@ example (A B C D E F G H I : Prop)
     (f : A → B) (g : C → B) (h : A → D) (i : B → E) (j : C → F)
     (k : E → D) (l : E → F) (m : G → D) (n : H → E) (p : F → I)
     (q : H → G) (r : H → I) (a : A) : I := by
-  sorry
+  suffices F by exact p this
+  suffices e : E by exact l e
+  suffices B by exact i this
+  exact f a
 
 -- Use only `refine` to work backwards from the goal:
 example (A B C D E F G H I : Prop)
     (f : A → B) (g : C → B) (h : A → D) (i : B → E) (j : C → F)
     (k : E → D) (l : E → F) (m : G → D) (n : H → E) (p : F → I)
     (q : H → G) (r : H → I) (a : A) : I := by
-  sorry
+  refine p ?_
+  refine l ?_
+  refine i ?_
+  refine f ?_
+  exact a
 
 -- Combine all of `clear`, `exact`, `have`, `suffices`, `refine`, and `apply`
+-- *NEVER* actually write your proofs like this!!!
 example (A B C D E F G H I : Prop)
     (f : A → B) (g : C → B) (h : A → D) (i : B → E) (j : C → F)
     (k : E → D) (l : E → F) (m : G → D) (n : H → E) (p : F → I)
     (q : H → G) (r : H → I) (a : A) : I := by
-  sorry
+  clear h
+  apply p
+  clear r
+  clear n
+  clear q
+  suffices E by exact l this
+  clear m
+  clear j
+  have b : B := f a
+  clear g
+  clear k
+  refine i (by exact b)
