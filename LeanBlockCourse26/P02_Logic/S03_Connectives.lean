@@ -705,3 +705,12 @@ example (P Q R S : Prop) : ((P ∧ Q) ∨ R) ∧ S → (P ∨ R) ∧ (Q ∨ R) �
   rintro ⟨⟨p, q⟩ | r, s⟩
   · exact ⟨Or.inl p, Or.inl q, s⟩
   · exact ⟨Or.inr r, Or.inr r, s⟩
+
+example (P Q R S : Prop) : ((P ∧ Q) ∨ R) ∧ S → (P ∨ R) ∧ (Q ∨ R) ∧ S :=
+  fun ⟨pqr, s⟩ ↦ match pqr with
+  | Or.inl ⟨p, q⟩ => ⟨Or.inl p, Or.inl q, s⟩
+  | Or.inr r => ⟨Or.inr r, Or.inr r, s⟩
+
+-- This unfortunately does not work ...
+-- example (P Q R S : Prop) : ((P ∧ Q) ∨ R) ∧ S → (P ∨ R) ∧ (Q ∨ R) ∧ S :=
+--   fun ⟨⟨p, q⟩ | r, s⟩ ↦ ⟨p | _, q | _, s⟩ | ⟨r | _, r | _, s⟩
