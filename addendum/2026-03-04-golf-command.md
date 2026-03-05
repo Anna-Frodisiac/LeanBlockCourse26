@@ -24,7 +24,7 @@ git = "https://github.com/FordUniver/ProofGolf"
 rev = "main"
 ```
 
-Then run `lake update ProofGolf` and add `import ProofGolf` to any file where you want to use it.
+Then run `lake update ProofGolf` and add `import ProofGolf` at the top of any file where you want to use it.
 
 ## Usage
 
