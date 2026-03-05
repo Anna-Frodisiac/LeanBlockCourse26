@@ -197,10 +197,9 @@ example (P Q : Prop) (p : ¬¬P) (f : P → Q) : ¬¬Q := by
 example (P Q R : Prop) (h : P ∨ Q ∨ R → ¬(P ∧ Q ∧ R)) : (P ∨ Q) ∨ R → ¬((P ∧ Q) ∧ R) := by
   intro hpqr ⟨⟨p, q⟩, r⟩
   apply h
-  · rcases hpqr with hpq | r
-    · rcases hpq with p | q
-      · left; exact p
-      · right; left; exact q
+  · rcases hpqr with (p | q) | r
+    · left; exact p
+    · right; left; exact q
     · right; right; exact r
   · exact ⟨p, q, r⟩
 
