@@ -343,3 +343,26 @@ theorem exercise_2_1_constructive (P Q : Prop) : (P → Q) → (¬Q → ¬P) := 
 -- used `Classical.choice` with `#print axioms _`
 theorem exercise_2_1_classical (P Q : Prop) : (P → Q) → (¬Q → ¬P) := by
   sorry
+
+/-
+## Exercise Block B03
+-/
+
+-- Exercise 3.1
+example (P Q : Prop) : (P → Q) ↔ (¬Q → ¬P) := by
+  sorry
+
+-- Exercise 3.2
+-- Prove this using a case distinction on `P`
+example (P Q : Prop) : (P → Q) → (¬P → Q) → Q := by
+  sorry
+
+-- Exercise 3.3 (Master)
+-- Prove this by combining `by_cases` with `push_neg`
+example (P : Prop) : ¬(P ↔ ¬P) := by
+  sorry
+
+-- Exercise 3.4 (Master)
+-- Prove this using as few characters as possible
+example (A B C : Prop) : (A ∧ (¬¬C)) ∨ (¬¬B) ∧ C ↔ (A ∧ C) ∨ B ∧ (¬¬C) := by
+  sorry
