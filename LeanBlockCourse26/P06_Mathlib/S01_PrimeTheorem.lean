@@ -349,6 +349,11 @@ theorem infinitude_of_primes_tfae : [
       have pPP : Nat.Prime p := pP
       exact not_prime pPP
 
+   tfae_have 3 → 5 := by -- Daniel
+      intro rhs n
+      obtain ⟨p, p_notin_S, p_prime⟩ := rhs (Finset.range (n + 1))
+      exact ⟨p, by simp [Finset.mem_range] at p_notin_S; omega, p_prime⟩
+
    tfae_have 7 → 1 := fun _ => Nat.infinite_setOf_prime -- Bohdan / Kimia
 
    tfae_have 1 → 7 := Nat.nth_strictMono -- Bohdan / Kimia
