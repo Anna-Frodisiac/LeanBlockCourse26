@@ -214,12 +214,11 @@ theorem infinitude_of_primes_tfae : [
     have pPP : Nat.Prime p := pP
     exact not_prime pPP
 
-
   tfae_have 3 → 5 := by sorry -- Daniel
 
-  tfae_have 7 → 1 := by sorry -- Bohdan / Kimia
+  tfae_have 7 → 1 := by sorry -- Bohdan
 
-  tfae_have 1 → 7 := by sorry -- Bohdan / Kimia
+  tfae_have 1 → 7 := by sorry -- Bohdan
 
   tfae_have 7 → 3 := by sorry -- Kimia
 
