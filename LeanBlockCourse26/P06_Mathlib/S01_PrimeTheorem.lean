@@ -214,13 +214,13 @@ theorem infinitude_of_primes_tfae : [
 
   tfae_have 3 → 5 := by sorry -- Daniel
 
-  tfae_have 7 → 1 := by sorry -- Bohdan / Kimia
+  tfae_have 7 → 1 := fun _ => Nat.infinite_setOf_prime -- Bohdan / Kimia
 
-  tfae_have 1 → 7 := by sorry -- Bohdan / Kimia
+  tfae_have 1 → 7 := Nat.nth_strictMono -- Bohdan / Kimia
 
   tfae_have 7 → 3 := by sorry -- Kimia
 
-  tfae_have 1 → 8 := by sorry 
+  tfae_have 1 → 8 := by sorry
 
   tfae_have 8 → 5 := by sorry
 
